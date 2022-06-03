@@ -1,3 +1,5 @@
+type Dictionary<T = string> = { [key: string]: T };
+
 type TableName = string;
 type ColumnName = string;
 
@@ -11,9 +13,7 @@ interface IDatabase {
 
 interface ITable {
   data: () => ILines;
-  rowsCount: () => number;
-  columnsCount: () => number;
-  insert: (columnValue: Dictionary<string>) => void;
+  count: () => number;
 }
 
 interface ILines {
@@ -21,9 +21,5 @@ interface ILines {
 }
 
 interface ILine {
-  cell: (columnName: string) => ICell;
-}
-
-interface ICell {
-  getValue: () => any;
+  cell: (columnName: string) => string;
 }

@@ -2,7 +2,7 @@ type TableName = string;
 
 const query = (
   columns: ColumnName[],
-  table: string | SelectCmd,
+  table: string,
   clause: WhereClause,
 ): SelectCmd => {
   return {
@@ -14,17 +14,17 @@ const query = (
 };
 
 const selectWhere =
-  (columns: ColumnName[], table: TableName | SelectCmd) =>
-  (clause: WhereClause) => ({ query: query(columns, table, clause) });
+  (columns: ColumnName[], table: TableName) =>
+    (clause: WhereClause) => ({ query: query(columns, table, clause) });
 
 const selectFrom =
-  (columns: ColumnName[]) => (table: TableName | SelectCmd) => ({
+  (columns: ColumnName[]) => (table: TableName) => ({
     where: selectWhere(columns, table),
   });
 
 const selectColumn =
   () =>
-  (...columns: ColumnName[]) => ({ from: selectFrom(columns) });
+    (...columns: ColumnName[]) => ({ from: selectFrom(columns) });
 
 export const select = () => ({
   column: selectColumn(),

@@ -13,11 +13,7 @@ export class GSQL {
 
   public run = (query: Query): Dictionary<string>[] => {
     switch (query.cmd) {
-      case 'CREATE':
-        throw GSQLError.Unimplement();
       case 'DELETE':
-        throw GSQLError.Unimplement();
-      case 'DROP':
         throw GSQLError.Unimplement();
       case 'INSERT':
         throw GSQLError.Unimplement();

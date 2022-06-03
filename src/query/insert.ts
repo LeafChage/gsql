@@ -16,7 +16,7 @@ const values = (tableName: TableName, columns: ColumnName[]) =>
         .filter(v => v != columns.length)
         .length > 0
     ) {
-      throw GSQLError.SyntaxError("カラムとデータ量が一致していません");
+      throw GSQLError.SyntaxError("You need to assign all column");
     }
     return { query: query(tableName, columns, values) }
   }
@@ -24,7 +24,7 @@ const values = (tableName: TableName, columns: ColumnName[]) =>
 const value = (tableName: TableName, columns: ColumnName[]) =>
   (value: string[]) => {
     if (value.length !== columns.length) {
-      throw GSQLError.SyntaxError("カラムとデータ量が一致していません");
+      throw GSQLError.SyntaxError("You need to assign all column");
     }
     return { query: query(tableName, columns, [value]) }
   };
@@ -38,7 +38,7 @@ const columns = (tableName: TableName) =>
 const table = () =>
   (table: TableName) => ({ columns: columns(table) })
 
-export const ginsert = () => ({
+export const insert = () => ({
   into: table()
 });
 

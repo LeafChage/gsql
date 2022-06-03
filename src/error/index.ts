@@ -4,12 +4,15 @@ export class GSQLError extends Error {
   }
 
   public static NotFoundDatabase = () =>
-    new GSQLError('SpreadSheetが見つかりません。');
+    new GSQLError('Not found SpreadSheet');
 
   public static NotFoundTable = (tableName: string) =>
-    new GSQLError(`Table(${tableName})が見つかりません。`);
+    new GSQLError(`Not found Table(${tableName})`);
 
-  public static Unimplement = () => new GSQLError('まだ実装していません。');
+  public static SyntaxError = (reason: string) =>
+    new GSQLError(`SyntaxError: ${reason}`);
+
+  public static Unimplement = () => new GSQLError('Sorry, unimplemented.');
 
   public static Unexpected = () => new GSQLError('?');
 
