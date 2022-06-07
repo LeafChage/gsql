@@ -3,8 +3,7 @@ export class GSQLError extends Error {
     super(msg);
   }
 
-  public static NotFoundDatabase = () =>
-    new GSQLError('Not found SpreadSheet');
+  public static NotFoundDatabase = () => new GSQLError('Not found SpreadSheet');
 
   public static NotFoundTable = (tableName: string) =>
     new GSQLError(`Not found Table(${tableName})`);
