@@ -2,12 +2,14 @@ interface In {
   kind: 'In';
   column: ColumnName;
   targets: string[];
+  normalize: boolean;
 }
 
 interface Eq {
   kind: 'Equal';
   column: ColumnName;
   target: string;
+  normalize: boolean;
 }
 
 interface LessThan {

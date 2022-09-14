@@ -11,6 +11,7 @@ const db = new GSQL(
       ['3', 'Emmalynn', 'Sumpter', 'esumpter2@craigslist.org', 'Female'],
       ['4', 'Lilly', 'Wyett', 'lwyett3@fema.gov', 'Female'],
       ['5', 'Dwain', 'Chandlar', 'dchandlar4@army.mil', 'Male'],
+      ['6', 'ポ', 'Chandlar', 'dchandlar4@army.mil', 'Male'],
     ],
     post: [
       ['id', 'post', 'user_id'],
@@ -45,6 +46,11 @@ const db = new GSQL(
       ['29', 'velit id pretium iaculis diam', '3'],
       ['30', 'parturient montes nascetur ridiculus mus', '3'],
     ],
+    normalize_test: [
+      ['id', 'value'],
+      ['1', 'ABC'],
+      ['2', 'ＡＢＣ'],
+    ],
   }),
 );
 
@@ -74,3 +80,32 @@ test('select id, first_name, email from user where id in (2, 3)', () => {
     { id: '3', first_name: 'Emmalynn', email: 'esumpter2@craigslist.org' },
   ]);
 });
+
+describe('normalize test', () => {
+  test('normalize false', () => {
+    expect(
+      db.run(
+        select()
+          .column('value')
+          .from('normalize_test')
+          .where(eq('value', 'ABC')).query,
+      ),
+    ).toEqual([
+      { value: 'ABC' },
+    ]);
+  });
+
+  test('normalize false', () => {
+    expect(
+      db.run(
+        select()
+          .column('value')
+          .from('normalize_test')
+          .where(eq('value', 'ABC', true)).query,
+      ),
+    ).toEqual([
+      { value: 'ABC' },
+      { value: 'ＡＢＣ' },
+    ]);
+  });
+})
