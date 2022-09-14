@@ -1,13 +1,23 @@
-export const inn = (column: ColumnName, targets: string[]): In => ({
+export const inn = (
+  column: ColumnName,
+  targets: string[],
+  normalize: boolean = false
+): In => ({
   kind: 'In',
   column,
   targets,
+  normalize,
 });
 
-export const eq = (column: ColumnName, target: string): Eq => ({
+export const eq = (
+  column: ColumnName,
+  target: string,
+  normalize: boolean = false
+): Eq => ({
   kind: 'Equal',
   column,
   target,
+  normalize,
 });
 
 export const lessThan = (column: ColumnName, target: string): LessThan => ({

@@ -57,8 +57,21 @@ const compare = (v: string, c: Comparison): boolean => {
   }
 };
 
-const inn = (v: string, c: In) => c.targets.includes(v);
-const eq = (v: string, c: Eq) => c.target === v;
+const inn = (v: string, c: In): boolean => {
+  const targets = c.normalize ?
+    c.targets.map(t => t.normalize('NFKD')) :
+    c.targets;
+  const value = c.normalize ? v.normalize('NFKD') : v;
+
+  return targets.includes(value);
+}
+const eq = (v: string, c: Eq): boolean => {
+  const target = c.normalize ?
+    c.target.normalize('NFKD') :
+    c.target;
+  const value = c.normalize ? v.normalize('NFKD') : v;
+  return target === value;
+}
 const lessThan = (v: string, c: LessThan) => v < c.target;
 const lessThanOrEqual = (v: string, c: LessThanOrEqual) => v <= c.target;
 const moreThan = (v: string, c: MoreThan) => v > c.target;
